@@ -1,0 +1,40 @@
+  
+name: check
+on:
+  # schedule:
+  #   - cron:  '*/10 * * * *'
+  push: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      
+      - name: setup node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - uses: actions/cache@v2
+        id: node-modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-dependencies-${{ hashFiles('**/package-lock.json') }}
+
+      - name: install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+    
+      - uses: browser-actions/setup-chrome@latest
+      
+      - run: chrome --remote-debugging-port=9223 --no-first-run --no-default-browser-check --headless --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36" &
+
+      - name: check
+        run: node index.js
+        env:
+          BASEURL: ${{ secrets.BASEURL }}
+          OPSGENIE_API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
+          UNWANTED_TEXT: ${{ secrets.UNWANTED_TEXT }}

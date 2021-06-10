@@ -1,0 +1,12 @@
+{
+  "name": "website-change-detector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "taiko": "^1.2.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
