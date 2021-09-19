@@ -1,4 +1,4 @@
-const { openBrowser, goto, text, $, deleteCookies } = require("taiko");
+const { openBrowser, goto, $, deleteCookies } = require("taiko");
 const axios = require('axios');
 
 ; (async () => {
@@ -31,12 +31,15 @@ const axios = require('axios');
 
 async function notify(textFound) {
   try {
-    if (process.env.OPSGENIE_API_KEY) {
-      await notifyViaOpsGenie(textFound)
-    } else if (process.env.SLACK_WEBHOOK_URL) {
-      await notifyViaSlack(textFound)
-    } else {
-      throw new Error('Neither OPSGENIE_API_KEY nor SLACK_WEBHOOK_URL provided. Exiting')
+    switch (process.env.NOTIFY_VIA) {
+      case 'opsgenie':
+        await notifyViaOpsGenie(textFound)
+        break;
+      case 'slack':
+        await notifyViaSlack(textFound)
+        break
+      default:
+        throw new Error('Missing NOTIFY_VIA, OPSGENIE_API_KEY or SLACK_WEBHOOK_URL. Exiting')
     }
   } catch (e) {
     throw new Error('Error triggering alert: ' + JSON.stringify(e.response?.data ?? e.message))

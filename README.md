@@ -7,6 +7,8 @@ Checks when a website changes and notifies you via OpsGenie or Slack
     /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9223 --no-first-run --no-default-browser-check --user-data-dir=$(mktemp -d -t 'chrome-remote_data_dir')
 
     export URL="https://the-website-to-check.com"
+
+    export NOTIFY_VIA="opsgenie" # or "slack"
     
     // if you want to get notified via opsgenie
     export OPSGENIE_API_KEY="xxxxx"

@@ -1,8 +1,8 @@
   
 name: check
 on:
-#  schedule:
-#    - cron:  '*/10 5-20 * * *'
+  schedule:
+    - cron:  '0 6 * * *'
   push: {}
 
 jobs:
@@ -35,6 +35,9 @@ jobs:
       - name: check
         run: node index.js
         env:
-          BASEURL: ${{ secrets.BASEURL }}
+          URL: ${{ secrets.BASEURL }}
+          NOTIFY_VIA: ${{ secrets.NOTIFY_VIA }}
           OPSGENIE_API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+          CSS_SELECTOR: ${{ secrets.CSS_SELECTOR }}
           UNWANTED_TEXT: ${{ secrets.UNWANTED_TEXT }}
