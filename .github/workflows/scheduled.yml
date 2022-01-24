@@ -38,7 +38,7 @@ jobs:
       - name: check
         run: node index.js
         env:
-          URL: ${{ secrets.BASEURL }}
+          URL: ${{ secrets.BASE_URL }}
           NOTIFY_VIA: ${{ secrets.NOTIFY_VIA }}
           OPSGENIE_API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
