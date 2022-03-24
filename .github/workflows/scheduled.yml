@@ -33,12 +33,12 @@ jobs:
         with:
           chrome-version: stable
       
-      - run: chrome --remote-debugging-port=9223 --no-first-run --no-default-browser-check --headless --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36" &
+      - run: chrome --remote-debugging-port=9223 --no-first-run --no-default-browser-check --headless --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36" &
 
       - name: check
         run: node index.js
         env:
-          URL: ${{ secrets.BASE_URL }}
+          URL: ${{ secrets.URL }}
           NOTIFY_VIA: ${{ secrets.NOTIFY_VIA }}
           OPSGENIE_API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}

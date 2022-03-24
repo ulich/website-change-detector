@@ -13,7 +13,7 @@ const axios = require('axios');
     await goto(process.env.URL);
 
     const textFound = (await $(process.env.CSS_SELECTOR).text()).trim()
-    console.log('Text found:', textFound)
+    console.log(`Text found:`, JSON.stringify(textFound))
 
     if (textFound === process.env.UNWANTED_TEXT) {
       console.log('Unwanted text found. Site did not change. Exiting...')
